@@ -1,0 +1,10 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Vertical line aligned to the end -->
+    <item
+        android:width="2dp"
+        android:gravity="start">
+        <shape>
+            <solid android:color="@color/primary_button_color"/> <!-- Line color -->
+        </shape>
+    </item>
+</layer-list>

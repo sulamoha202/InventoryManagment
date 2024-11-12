@@ -1,0 +1,4 @@
+<resources>
+    <!-- Define spacing between items in RecyclerView -->
+    <dimen name="item_spacing">8dp</dimen>
+</resources>

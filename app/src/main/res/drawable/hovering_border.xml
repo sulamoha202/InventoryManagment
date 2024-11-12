@@ -1,0 +1,31 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Shadow Layer -->
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="#00777777" />
+            <corners android:radius="10dp"/>
+            <size
+                android:width="0dp"
+                android:height="0dp" />
+            <padding
+                android:left="3dp"
+                android:top="3dp"
+                android:right="3dp"
+                android:bottom="3dp" />
+        </shape>
+    </item>
+
+    <!-- Border Layer -->
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@android:color/transparent"/>
+            <stroke
+                android:color="@color/primary_button_color"
+                android:width="3dp"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+
+    <!-- Hover Effect (Change background color on hover) -->
+    <item android:drawable="@drawable/hover_effect" />
+</layer-list>

@@ -1,0 +1,23 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Top border -->
+    <item
+        android:height="2dp"
+        android:width="199dp"
+        android:gravity="bottom">
+        <shape>
+            <solid android:color="@color/primary_button_color"/> <!-- Top border color -->
+        </shape>
+    </item>
+
+    <!-- Right border -->
+    <item
+        android:width="2dp"
+        android:height="200dp"
+        android:gravity="end">
+        <shape>
+            <solid android:color="@color/primary_button_color"/> <!-- Right border color -->
+        </shape>
+    </item>
+
+</layer-list>

@@ -1,0 +1,24 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Vertical line aligned to the end -->
+    <item
+        android:width="6dp"
+        android:gravity="end">
+        <shape>
+            <solid android:color="@color/primary_button_color"/> <!-- Line color -->
+        </shape>
+    </item>
+    <item
+        android:width="4dp"
+        android:gravity="end">
+        <shape>
+            <solid android:color="@color/background_color"/> <!-- Line color -->
+        </shape>
+    </item>
+    <item
+        android:width="2dp"
+        android:gravity="end">
+        <shape>
+            <solid android:color="@color/primary_button_color"/> <!-- Line color -->
+        </shape>
+    </item>
+</layer-list>

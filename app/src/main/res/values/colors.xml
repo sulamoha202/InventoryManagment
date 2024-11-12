@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light Theme Colors -->
+    <color name="primary_button_color">#FF5722</color>
+    <color name="primary_button_text_color">#CCCCCC</color>
+    <color name="accent_text_color">#FF5722</color>
+    <color name="background_color">#FFFFFF</color>
+    <color name="primary_text_color">#212121</color>
+    <color name="secondary_text_color">#777777</color>
+    <color name="input_border_color">#DDDDDD</color>
+    <color name="light_gray_background">#F6F6F6</color>
+    <color name="icon_color">#CCCCCC</color>
+</resources>
