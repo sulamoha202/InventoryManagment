@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mtsd.R;
+import com.mtsd.fragment.MovementsFragment;
 import com.mtsd.fragment.ProductListFragment;
 import com.mtsd.fragment.HomeFragment;
 import com.mtsd.fragment.ProfileFragment;
@@ -49,8 +50,11 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.nav_home:
                 selectedFragment = new HomeFragment();
                 break;
-            case R.id.nav_settings:
+            case R.id.nav_profile:
                 selectedFragment = new ProfileFragment();
+                break;
+            case R.id.nav_movements:
+                selectedFragment = new MovementsFragment();
                 break;
             case R.id.nav_products:
                 selectedFragment = new ProductListFragment();

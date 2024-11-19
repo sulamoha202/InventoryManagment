@@ -1,7 +1,12 @@
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    firstname TEXT NOT NULL,
+    middlename TEXT,
+    lastname TEXT,
+    address TEXT,
+
 );
 
 CREATE TABLE IF NOT EXISTS products (

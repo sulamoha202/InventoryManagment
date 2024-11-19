@@ -10,7 +10,6 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.mtsd.R;
-import com.mtsd.activity.MovimentsActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -25,14 +24,6 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         // Inflate the layout for this fragment
-
-        Button vMvmntBtn = view.findViewById(R.id.vMvmntBtn);
-
-        vMvmntBtn.setOnClickListener(v->{
-            Intent intent = new Intent(getActivity(), MovimentsActivity.class);
-            startActivity(intent);
-        });
-
 
         return view;
     }

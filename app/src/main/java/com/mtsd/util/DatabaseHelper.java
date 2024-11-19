@@ -155,7 +155,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void initializeDefaultData() {
         if (isProductsTableEmpty()) {
-            //insertDefaultData();
+            insertDefaultData();
         } else {
             Log.d("DatabaseHelper", "Default data already exists.");
         }
@@ -194,9 +194,65 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return movementList;
     }
 
+    public List<String> getProductNames() {
+        List<String> productNames = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT name FROM products", null);
+        if (cursor.moveToFirst()) {
+            do {
+                productNames.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return productNames;
+    }
+
+    public int getProductIdByName(String productName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT id FROM products WHERE name = ?", new String[]{productName});
+        if (cursor.moveToFirst()) {
+            int productId = cursor.getInt(0);
+            cursor.close();
+            return productId;
+        }
+        cursor.close();
+        return -1; // Not found
+    }
+
+    public boolean addInventoryMovement(int productId, String movementType, int quantity, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("product_id", productId);
+        values.put("movement_type", movementType);
+        values.put("quantity", quantity);
+        values.put("date", date);
+        long result = db.insert("inventory_movements", null, values);
+        return result != -1;
+    }
+    public int getProductQuantityById(int productId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT quantity FROM products WHERE id = ?", new String[]{String.valueOf(productId)});
+        if (cursor.moveToFirst()) {
+            int quantity = cursor.getInt(0);
+            cursor.close();
+            return quantity;
+        }
+        cursor.close();
+        return 0; // Default to 0 if product not found
+    }
+    public boolean updateProductQuantity(int productId, int newQuantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("quantity", newQuantity);
+        int rowsAffected = db.update("products", values, "id = ?", new String[]{String.valueOf(productId)});
+        return rowsAffected > 0;
+    }
+
+
+
+
 
     private void insertDefaultData() {
-        insertUser("admin", "admin");
         insertProduct("Samsung galaxy S24 Ultra", 4, 1600.11, "It a Cell Phone", "");
         insertProduct("Apple Iphone 16 Pro Max", 2, 1499.99, "It a Cell Phone", "");
         insertProduct("Apple Macbook Air", 3, 1899.99, "It a Laptop", "");

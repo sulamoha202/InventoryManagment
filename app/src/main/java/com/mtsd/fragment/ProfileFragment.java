@@ -27,14 +27,13 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        LinearLayout logoutButton = view.findViewById(R.id.logout);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
+        Button btnLogout = view.findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logout();
             }
         });
-
         return view;
     }
 
@@ -43,12 +42,10 @@ public class ProfileFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("isLoggedIn", false);
         editor.apply();
-
         // Clear the back stack and start LoginActivity
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-
         // Confirm logout
         Toast.makeText(getActivity(), "Logged out successfully", Toast.LENGTH_SHORT).show();
     }
