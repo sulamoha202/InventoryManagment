@@ -21,4 +21,14 @@ CREATE TABLE IF NOT EXISTS store_info (
     email TEXT
 );
 
+CREATE TABLE IF NOT EXISTS inventory_movements (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id INTEGER NOT NULL,
+    movement_type TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    date TEXT NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+
+
 INSERT INTO users(username,password) VALUES ("admin","admin");

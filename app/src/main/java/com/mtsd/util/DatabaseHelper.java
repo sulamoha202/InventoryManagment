@@ -3,10 +3,12 @@ package com.mtsd.util;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.mtsd.model.Movement;
 import com.mtsd.model.Product;
 
 import java.io.BufferedReader;
@@ -76,20 +78,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void executeSQLScript(SQLiteDatabase db) {
+        Log.i("DatabaseHelper", "Execute sql script started");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(DDL_FILE_PATH)))) {
             StringBuilder statement = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 statement.append(line);
-                if (line.trim().endsWith(";")) {
-                    db.execSQL(statement.toString().trim());
-                    statement = new StringBuilder();
+                if (line.trim().endsWith(";")) { // SQL statement ends
+                    String sql = statement.toString().trim();
+                    try {
+                        db.execSQL(sql);
+                        Log.i("DatabaseHelper", "Executed successfully: " + sql);
+                    } catch (SQLException e) {
+                        Log.e("DatabaseHelper", "Execution failed for: " + sql, e);
+                    }
+                    statement = new StringBuilder(); // Reset for the next statement
                 }
             }
         } catch (IOException e) {
             Log.e("DatabaseHelper", "Error reading SQL script", e);
         }
     }
+
 
     public boolean checkUserCredentials(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -159,6 +169,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return count == 0;
     }
+    public List<Movement> getAllMovements() {
+        List<Movement> movementList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT m.id, p.name AS product_name, m.movement_type, m.quantity, m.date " +
+                        "FROM inventory_movements m " +
+                        "JOIN products p ON m.product_id = p.id " +
+                        "ORDER BY m.date DESC", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String productName = cursor.getString(cursor.getColumnIndex("product_name"));
+                String movementType = cursor.getString(cursor.getColumnIndex("movement_type"));
+                int quantity = cursor.getInt(cursor.getColumnIndex("quantity"));
+                String date = cursor.getString(cursor.getColumnIndex("date"));
+
+                Movement movement = new Movement(productName, movementType, quantity, date);
+                movementList.add(movement);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return movementList;
+    }
+
 
     private void insertDefaultData() {
         insertUser("admin", "admin");
