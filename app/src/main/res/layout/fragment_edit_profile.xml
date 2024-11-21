@@ -1,0 +1,38 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Profile edit fields -->
+    <EditText
+        android:id="@+id/edit_store_name"
+        android:layout_width="match_parent"
+        android:layout_height="65sp"
+        android:textSize="22dp"
+        android:layout_marginBottom="20sp"
+        android:hint="@string/store_name" />
+    <EditText
+        android:id="@+id/edit_username"
+        android:layout_width="match_parent"
+        android:layout_height="65sp"
+        android:textSize="22dp"
+        android:layout_marginBottom="20sp"
+        android:hint="@string/name" />
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="65sp"
+        android:layout_marginBottom="20sp"
+        android:textSize="22dp"
+        android:hint="@string/password" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:text="@string/save" />
+</LinearLayout>

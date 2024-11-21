@@ -1,0 +1,30 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btnStockSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_button_text_color"
+        android:text="@string/stock_summary" />
+
+    <Button
+        android:id="@+id/btnRecentMovements"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_button_text_color"
+        android:layout_marginTop="16dp"
+        android:text="@string/recent_movements" />
+
+    <Button
+        android:id="@+id/btnLowStock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/primary_button_text_color"
+        android:text="@string/low_stock" />
+</LinearLayout>
