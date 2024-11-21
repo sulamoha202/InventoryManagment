@@ -45,4 +45,13 @@
     <string name="login">تسجيل الدخول</string>
     <string name="forgot_password">هل نسيت كلمة المرور؟</string>
     <string name="enter_your_password">أدخل كلمة المرور</string>
+    <string name="view_details">عرض التفاصيل</string>
+    <string name="see_movements">See Movements</string>
+    <string name="stock_alerts">Stock Alerts</string>
+    <string name="search_products">Search Products...</string>
+    <string name="last_movements">Last Movements</string>
+    <string name="generate_reports">Generar Reporte</string>
+    <string name="reports_resume">Resumen de Reportes</string>
+    <string name="generate_monthly_report">Generar Reporte Mensual</string>
+
 </resources>

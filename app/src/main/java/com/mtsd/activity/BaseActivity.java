@@ -51,7 +51,7 @@ public class BaseActivity extends AppCompatActivity {
         // Setup Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
-
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
         // Load the default fragment (HomeFragment) initially
         loadFragment(new HomeFragment());
     }
@@ -79,6 +79,7 @@ public class BaseActivity extends AppCompatActivity {
 
         if (selectedFragment != null) {
             loadFragment(selectedFragment);
+            item.setChecked(true);
             return true;
         }
         return false;

@@ -10,8 +10,11 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.mtsd.R;
+import com.mtsd.activity.BaseActivity;
 /*import com.mtsd.activity.LowStockActivity;
 import com.mtsd.activity.RecentMovementsActivity;
 import com.mtsd.activity.StockSummaryActivity;*/
@@ -28,21 +31,17 @@ public class ReportsFragment extends Fragment {
         btnRecentMovements = view.findViewById(R.id.btnRecentMovements);
         btnLowStock = view.findViewById(R.id.btnLowStock);
 
-        btnStockSummary.setOnClickListener(v -> {
-           /* Intent intent = new Intent(getActivity(), StockSummaryActivity.class);
-            startActivity(intent);*/
-        });
+        btnStockSummary.setOnClickListener(v -> navigateToFragment(new StockSummaryFragment()));
+        btnRecentMovements.setOnClickListener(v -> navigateToFragment(new RecentMovementsFragment()));
+        btnLowStock.setOnClickListener(v -> navigateToFragment(new LowStockFragment()));
 
-        btnRecentMovements.setOnClickListener(v -> {
-            /*Intent intent = new Intent(getActivity(), RecentMovementsActivity.class);
-            startActivity(intent);*/
-        });
 
-        btnLowStock.setOnClickListener(v -> {
-           /* Intent intent = new Intent(getActivity(), LowStockActivity.class);
-            startActivity(intent);*/
-        });
 
         return view;
+    }
+    private void navigateToFragment(Fragment fragment) {
+        if( getActivity() instanceof BaseActivity){
+            ((BaseActivity) getActivity()).loadFragmentFromFragment(fragment);
+        }
     }
 }

@@ -45,4 +45,12 @@
     <string name="login">Se Connecter</string>
     <string name="forgot_password">Mot de passe oublié ?</string>
     <string name="enter_your_password">Entrez votre mot de passe</string>
+    <string name="view_details">Voir les Détails</string>
+    <string name="see_movements">See Movements</string>
+    <string name="stock_alerts">Stock Alerts</string>
+    <string name="search_products">Search Products...</string>
+    <string name="last_movements">Last Movements</string>
+    <string name="generate_reports">Generar Reporte</string>
+    <string name="reports_resume">Resumen de Reportes</string>
+    <string name="generate_monthly_report">Generar Reporte Mensual</string>
 </resources>

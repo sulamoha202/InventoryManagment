@@ -1,9 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_home"
-        android:icon="@drawable/baseline_home_24"
-        android:title="@string/home" />
-    <item
         android:id="@+id/nav_movements"
         android:icon="@drawable/baseline_assignment_24"
         android:title="@string/movements" />
@@ -11,6 +7,10 @@
         android:id="@+id/nav_products"
         android:icon="@drawable/round_ballot_24"
         android:title="@string/products" />
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/baseline_home_24"
+        android:title="@string/home" />
     <item
         android:id="@+id/nav_reports"
         android:icon="@drawable/baseline_analytics_24"

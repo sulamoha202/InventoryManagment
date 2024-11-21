@@ -2,8 +2,8 @@
 <resources>
     <!-- Light Theme Colors -->
     <color name="primary_button_color">#FF5722</color>
-    <color name="primary_button_text_color">#CCCCCC</color>
-    <color name="accent_text_color">#FF5722</color>
+    <color name="primary_button_text_color">#FFFFFF</color>
+    <color name="accent_text_color">#FF3D00</color>
     <color name="background_color">#FFFFFF</color>
     <color name="primary_text_color">#212121</color>
     <color name="secondary_text_color">#777777</color>

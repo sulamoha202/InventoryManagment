@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS products (
     name TEXT NOT NULL,
     quantity INTEGER DEFAULT 0,
     price REAL DEFAULT 0.0,
+    category TEXT,
     description TEXT,
     imageReference TEXT
 );

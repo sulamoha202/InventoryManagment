@@ -19,7 +19,10 @@ import com.mtsd.util.DatabaseHelper;
 import com.mtsd.R;
 import com.mtsd.fragment.EditProductFragment;
 import com.mtsd.model.Product;
+
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     private List<Product> productList;
@@ -35,7 +38,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
         return new ViewHolder(view);
     }
 
@@ -49,11 +52,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = productList.get(position);
 
+        String formatedPrice = String.format("%s %.2f", "€",product.getPrice());
         // Set product details
         holder.tvProductId.setText(String.valueOf(product.getId()));
         holder.tvProductName.setText(product.getName());
         holder.tvProductQuantity.setText(String.valueOf(product.getQuantity()));
-        holder.tvProductPrice.setText(String.valueOf(product.getPrice()));
+        holder.tvProductPrice.setText(formatedPrice);
         holder.tvProductDescription.setText(product.getDescription());
 
         // Load image if available, otherwise set fallback image
