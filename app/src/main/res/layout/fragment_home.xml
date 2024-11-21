@@ -1,0 +1,147 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Saludo Personalizado -->
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¡Hola, Usuario!"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp" />
+
+    <!-- Resumen de Inventario -->
+    <TextView
+        android:id="@+id/tvInventorySummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resumen del Inventario"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvTotalProducts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total productos: 250"
+        android:textSize="16sp"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tvLowStockAlert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¡Alerta! 5 productos con stock bajo"
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_red_dark"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tvTotalInventoryValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Valor total del inventario: $5000"
+        android:textSize="16sp"
+        android:paddingBottom="16dp" />
+
+    <!-- Gráfico de Inventario -->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="32dp" />
+
+    <!-- Accesos Directos -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btnAddProduct"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:textColor="@color/primary_button_text_color"
+            android:text="@string/add_product"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnViewMovements"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:textColor="@color/primary_button_text_color"
+            android:text="@string/see_movements"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnGenerateReport"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:textColor="@color/primary_button_text_color"
+            android:text="@string/generate_reports"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnStockAlerts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:textColor="@color/primary_button_text_color"
+            android:text="@string/stock_alerts"
+            android:textSize="14sp" />
+    </GridLayout>
+
+    <!-- Movimientos Recientes -->
+    <TextView
+        android:id="@+id/tvRecentMovements"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/last_movements"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="8dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRecentMovements"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Barra de Búsqueda -->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:queryHint="@string/search_products" />
+
+    <!-- Resumen de Reportes -->
+    <TextView
+        android:id="@+id/tvReportsSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reports_resume"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp" />
+
+    <Button
+        android:id="@+id/btnGenerateMonthlyReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/generate_monthly_report"
+        android:textSize="14sp" />
+
+</LinearLayout>
