@@ -43,7 +43,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginTop="15sp"
-                    android:text="Person Name"
+                    android:text="@string/user_name"
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="person.test@email.com"
+                    android:text="@string/user_email"
                     android:textColor="@color/secondary_text_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -72,6 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15sp"
+                android:background="@drawable/border_bottom"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -80,7 +81,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="@drawable/border_bottom"
+                    android:layout_marginBottom="15sp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -96,8 +97,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="fill_vertical"
-                        android:inputType="text"
-                        android:text="Edit Profile"
+                        android:text="@string/edit_profile"
                         android:textAlignment="gravity"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -149,8 +149,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="fill_vertical"
-                        android:inputType="text"
-                        android:text="Settings"
+                        android:text="@string/settings"
                         android:textAlignment="gravity"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -166,35 +165,43 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="15sp"
+                android:background="@drawable/border_bottom"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/logout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10sp"
+                    android:background="?attr/selectableItemBackground"
+                    android:layout_marginBottom="10sp"
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/btnLogout"
-                        android:layout_width="match_parent"
+
+                    <ImageView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp" android:drawableStart="@drawable/baseline_logout_24"
-                        android:drawablePadding="10dp"
-                        android:text="Logout"
-                        android:textColor="@color/primary_button_text_color"
-                        android:textAlignment="center" android:textSize="16sp"
+                        android:layout_marginStart="15sp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/baseline_logout_24" />
+
+                    <TextView
+                        android:layout_width="320dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="fill_vertical"
+                        android:text="@string/logout"
+                        android:textAlignment="gravity"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
-
-
 
             </LinearLayout>
         </LinearLayout>

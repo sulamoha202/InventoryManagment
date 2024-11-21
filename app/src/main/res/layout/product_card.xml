@@ -31,7 +31,7 @@
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="#"
+                    android:text="@string/hash"
                     android:textAlignment="center"
                     android:textSize="14sp" />
 
@@ -39,7 +39,7 @@
                     android:id="@+id/tvProductId"
                     android:layout_width="44dp"
                     android:layout_height="match_parent"
-                    android:text="ID"
+                    android:text="@string/id"
                     android:textAlignment="viewStart"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -57,7 +57,7 @@
                     android:id="@+id/tvProductName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Product Name"
+                    android:text="@string/product_name"
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -89,7 +89,7 @@
                     <TextView
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:text="Quantity:"
+                        android:text="@string/quantity"
                         android:layout_gravity="center"
                         />
 
@@ -100,14 +100,14 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:text="Quantity" />
+                        android:text="@string/quantity" />
 
                     <TextView
                         android:layout_width="39dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:text="unit" />
+                        android:text="@string/unit" />
 
                 </LinearLayout>
 
@@ -123,14 +123,14 @@
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Price:" />
+                        android:text="@string/price" />
 
                     <TextView
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="end"
-                        android:text="$" />
+                        android:text="@string/dolar_char" />
 
                     <TextView
                         android:id="@+id/tvProductPrice"
@@ -139,7 +139,7 @@
                         android:gravity="end"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Price" />
+                        android:text="@string/price" />
 
                 </LinearLayout>
 
@@ -154,7 +154,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Description:" />
+                        android:text="@string/description" />
 
                     <TextView
                         android:id="@+id/tvProductDescription"
@@ -163,7 +163,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_weight="1"
-                        android:text="Description" />
+                        android:text="@string/description" />
                 </LinearLayout>
             </LinearLayout>
 

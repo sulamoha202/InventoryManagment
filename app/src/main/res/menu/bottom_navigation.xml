@@ -2,20 +2,22 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/baseline_home_24"
-        android:title="Home" />
-
-    <item
-        android:id="@+id/nav_products"
-        android:icon="@drawable/round_ballot_24"
-        android:title="Products" />
-
+        android:title="@string/home" />
     <item
         android:id="@+id/nav_movements"
         android:icon="@drawable/baseline_assignment_24"
-        android:title="Profile" />
+        android:title="@string/movements" />
+    <item
+        android:id="@+id/nav_products"
+        android:icon="@drawable/round_ballot_24"
+        android:title="@string/products" />
+    <item
+        android:id="@+id/nav_reports"
+        android:icon="@drawable/baseline_analytics_24"
+        android:title="@string/reports" />
 
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/baseline_person_24"
-        android:title="Profile" />
+        android:title="@string/profile" />
 </menu>

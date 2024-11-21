@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome to the Home Fragment"
+        android:text="@string/home_welcom_page"
         android:textSize="20sp"
         android:gravity="center" />
 </LinearLayout>

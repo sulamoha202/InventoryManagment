@@ -17,8 +17,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/border_bottom_two_lines"
             android:padding="12dp"
-            android:text="Add Product"
-            android:textSize="20sp"
+            android:text="@string/add_product"
+            android:textSize="26sp"
             android:textStyle="bold"
             android:layout_marginBottom="15dp"/>
 
@@ -31,13 +31,13 @@
             android:layout_marginBottom="15sp"
             android:gravity="center"
             android:background="@drawable/rounded_background"
-            android:hint="Product Name" />
+            android:hint="@string/product_name" />
 
         <EditText
             android:id="@+id/etProductQuantity"
             android:layout_width="match_parent"
             android:layout_height="50sp"
-            android:hint="Quantity"
+            android:hint="@string/quantity"
             android:gravity="center"
             android:layout_marginTop="15sp"
             android:layout_marginBottom="15sp"
@@ -50,7 +50,7 @@
             android:id="@+id/etProductPrice"
             android:layout_width="match_parent"
             android:layout_height="50sp"
-            android:hint="Price"
+            android:hint="@string/price"
             android:gravity="center"
             android:background="@drawable/rounded_background"
             android:layout_marginTop="15sp"
@@ -65,7 +65,7 @@
             android:layout_marginTop="15sp"
             android:layout_marginBottom="15sp"
             android:background="@drawable/rounded_background"
-            android:hint="Description"
+            android:hint="@string/description"
             android:gravity="center"
             android:textSize="20dp"
             android:inputType="textMultiLine" />
@@ -88,7 +88,7 @@
                 android:layout_marginEnd="20sp"
                 android:layout_marginStart="20sp"
                 android:background="@drawable/border_left_right_double_line"
-                android:contentDescription="Product Image Preview"
+                android:contentDescription="@string/product_image_preview"
                 android:scaleType="centerCrop"
                 android:src="@drawable/baseline_image_24" />
 
@@ -107,7 +107,7 @@
             android:layout_height="50sp"
             android:layout_gravity="center"
             android:layout_marginTop="15sp"
-            android:text="Update"
+            android:text="@string/update"
             android:textColor="@color/primary_button_text_color"
             android:textSize="25dp" />
     </LinearLayout>

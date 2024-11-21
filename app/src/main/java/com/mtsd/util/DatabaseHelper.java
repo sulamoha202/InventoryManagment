@@ -10,6 +10,9 @@ import android.util.Log;
 
 import com.mtsd.model.Movement;
 import com.mtsd.model.Product;
+import com.mtsd.model.ReportLowStock;
+import com.mtsd.model.ReportRecentMovement;
+import com.mtsd.model.ReportStockSummary;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -247,7 +250,75 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int rowsAffected = db.update("products", values, "id = ?", new String[]{String.valueOf(productId)});
         return rowsAffected > 0;
     }
+    public List<ReportRecentMovement> getRecentMovements() {
+        List<ReportRecentMovement> movementList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
 
+        Cursor cursor = db.rawQuery(
+                "SELECT m.id, p.name AS product_name, m.movement_type, m.quantity, m.date " +
+                        "FROM inventory_movements m " +
+                        "JOIN products p ON m.product_id = p.id " +
+                        "ORDER BY m.date DESC " +
+                        "LIMIT 10", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String productName = cursor.getString(cursor.getColumnIndex("product_name"));
+                String movementType = cursor.getString(cursor.getColumnIndex("movement_type"));
+                int quantity = cursor.getInt(cursor.getColumnIndex("quantity"));
+                String date = cursor.getString(cursor.getColumnIndex("date"));
+
+                movementList.add(new ReportRecentMovement(productName, movementType, quantity, date));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return movementList;
+    }
+    public List<ReportLowStock> getLowStockProducts(int threshold) {
+        List<ReportLowStock> lowStockList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT p.name, p.quantity " +
+                        "FROM products p " +
+                        "WHERE p.quantity < ? " +
+                        "ORDER BY p.quantity ASC", new String[]{String.valueOf(threshold)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                int quantity = cursor.getInt(cursor.getColumnIndex("quantity"));
+
+                lowStockList.add(new ReportLowStock(name, quantity));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return lowStockList;
+    }
+
+
+
+    public List<ReportStockSummary> getStockSummary() {
+        List<ReportStockSummary> stockSummaryList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT p.name, p.quantity, p.price " +
+                        "FROM products p " +
+                        "ORDER BY p.name ASC", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                int quantity = cursor.getInt(cursor.getColumnIndex("quantity"));
+                double price = cursor.getDouble(cursor.getColumnIndex("price"));
+
+                stockSummaryList.add(new ReportStockSummary(name, quantity, price));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return stockSummaryList;
+    }
 
 
 

@@ -29,7 +29,7 @@
                 android:layout_width="325dp"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Product List"
+                android:text="@string/product_list"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

@@ -2,6 +2,7 @@ package com.mtsd.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -15,6 +16,9 @@ import com.mtsd.fragment.MovementsFragment;
 import com.mtsd.fragment.ProductListFragment;
 import com.mtsd.fragment.HomeFragment;
 import com.mtsd.fragment.ProfileFragment;
+import com.mtsd.fragment.ReportsFragment;
+
+import java.util.Locale;
 
 public class BaseActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
@@ -22,7 +26,16 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Locale locale = new Locale("es");
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
         setContentView(R.layout.activity_base); // Base layout contains BottomNavigationView
+
 
         // Check login status only once when activity is created
         sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
@@ -59,6 +72,9 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.nav_products:
                 selectedFragment = new ProductListFragment();
                 break;
+            case R.id.nav_reports:
+                selectedFragment = new ReportsFragment();
+                break;
         }
 
         if (selectedFragment != null) {
@@ -73,5 +89,9 @@ public class BaseActivity extends AppCompatActivity {
         transaction.replace(R.id.contentFrame, fragment);
         transaction.addToBackStack(null); // Optional
         transaction.commit();
+    }
+
+    public void loadFragmentFromFragment(Fragment fragment){
+        loadFragment(fragment);
     }
 }

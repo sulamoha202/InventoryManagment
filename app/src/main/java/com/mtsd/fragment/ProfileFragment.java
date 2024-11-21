@@ -12,8 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.mtsd.R;
+import com.mtsd.activity.BaseActivity;
 import com.mtsd.activity.LoginActivity;
 
 public class ProfileFragment extends Fragment {
@@ -27,13 +30,15 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        Button btnLogout = view.findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
-        });
+        LinearLayout logoutLayout = view.findViewById(R.id.logout);
+        LinearLayout editProfileLayout = view.findViewById(R.id.editProfile);
+        LinearLayout settingsLayout = view.findViewById(R.id.settings);
+
+
+        editProfileLayout.setOnClickListener(v -> navigateToFragment(new EditProfileFragment()));
+        settingsLayout.setOnClickListener(v -> navigateToFragment(new SettingsFragment()));
+        logoutLayout.setOnClickListener(v -> logout());
+
         return view;
     }
 
@@ -48,6 +53,12 @@ public class ProfileFragment extends Fragment {
         startActivity(intent);
         // Confirm logout
         Toast.makeText(getActivity(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    private void navigateToFragment(Fragment fragment) {
+       if( getActivity() instanceof BaseActivity){
+           ((BaseActivity) getActivity()).loadFragmentFromFragment(fragment);
+       }
     }
 
 
