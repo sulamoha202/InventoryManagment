@@ -222,6 +222,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return -1; // Not found
     }
 
+    public  int getQuantitySumOfAllProducts(){
+        int result = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT SUM(quantity) FROM products";
+        Cursor cursor = db.rawQuery(query,null);
+
+        int totalQuantity = 0;
+        if(cursor.moveToFirst()){
+            totalQuantity = cursor.getInt(0);
+        }
+        cursor.close();
+        return totalQuantity;
+    }
+
+    public  int getLowStockCount(int threshold){
+        int result = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT SUM(quantity) FROM products WHERE quantity <= ?";
+        Cursor cursor = db.rawQuery(query,new String[]{String.valueOf(threshold)});
+
+        int count = 0;
+        if(cursor.moveToFirst()){
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
+    }
+
     public boolean addInventoryMovement(int productId, String movementType, int quantity, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -242,6 +270,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return 0; // Default to 0 if product not found
+    }
+
+    public double getTotalInventoryValue(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        double totalValue =0;
+        Cursor cursor = db.rawQuery("SELECT SUM(price * quantity) AS total FROM products",null);
+
+        if(cursor.moveToFirst()){
+            totalValue = cursor.getDouble(cursor.getColumnIndexOrThrow("total"));
+        }
+        cursor.close();
+        return totalValue;
     }
     public boolean updateProductQuantity(int productId, int newQuantity) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -331,13 +371,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertProduct("Dell Alienware", 2, 1450.00, "It a Laptop", "");
         insertProduct("Xiaomi Realme C53", 15, 149.99, "It a Cell Phone", "");
         Log.d("DatabaseHelper", "Default data inserted.");
-    }
-
-    private void insertUser(String username, String password) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("INSERT INTO " + TABLE_USERS + " (" + COLUMN_USERNAME + ", " + COLUMN_PASSWORD + ") VALUES (?, ?)",
-                new Object[]{username, password});
-        Log.d("DatabaseHelper", "User inserted: " + username);
     }
 
     private Product createProductFromCursor(Cursor cursor) {

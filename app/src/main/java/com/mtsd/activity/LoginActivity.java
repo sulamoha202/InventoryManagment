@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(validateUser(username,password)){
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("isLoggedIn", true);
+                    editor.putString("username",username);
                     editor.apply();
 
                     Intent intent = new Intent(LoginActivity.this, BaseActivity.class);

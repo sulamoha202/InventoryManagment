@@ -1,6 +1,10 @@
 <resources>
+    <string name="total_inventory_value">Valeur totale de l\'inventaire: %.2f€</string>
+    <string name="total_products">Total du produits: %d</string>
+    <string name="low_stock_alerts">Alerte ! %d produits avec un stock faible</string>
     <string name="app_name">Gestion des Stocks de Vente au Détail</string>
     <string name="home">Accueil</string>
+    <string name="welcoming_user">Bienvenue %s</string>
     <string name="movements">Mouvements</string>
     <string name="products">Produits</string>
     <string name="reports">Rapports</string>
@@ -46,11 +50,17 @@
     <string name="forgot_password">Mot de passe oublié ?</string>
     <string name="enter_your_password">Entrez votre mot de passe</string>
     <string name="view_details">Voir les Détails</string>
-    <string name="see_movements">See Movements</string>
-    <string name="stock_alerts">Stock Alerts</string>
-    <string name="search_products">Search Products...</string>
-    <string name="last_movements">Last Movements</string>
-    <string name="generate_reports">Generar Reporte</string>
-    <string name="reports_resume">Resumen de Reportes</string>
+    <string name="see_movements">Voir les mouvements</string>
+    <string name="stock_alerts">Alertes de stock</string>
+    <string name="search_products">Rechercher des produits...</string>
+    <string name="last_movements">Derniers mouvements</string>
+    <string name="generate_report">Générer un Rapport</string>
+    <string name="reports_resume">Résumé des rapports</string>
     <string name="generate_monthly_report">Generar Reporte Mensual</string>
+    <string name="generate_reports">Générer des rapports</string>
+    <string name="generate_monthly_reports">Rapport mensuel</string>
+    <string name="monthly_report_description">Consultez des rapports détaillés pour le mois en cours ou les mois précédents.</string>
+    <string name="category_report">Rapport par catégorie</string>
+    <string name="category_report_description">Analysez les stocks et les mouvements groupés par catégorie.</string>
+
 </resources>

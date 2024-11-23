@@ -1,6 +1,10 @@
 <resources>
+    <string name="total_inventory_value">Valor total del inventario: %.2f€</string>
+    <string name="low_stock_alerts">¡Alerta! %d productos con stock bajo</string>
+    <string name="total_products">Total productos: %d</string>
     <string name="app_name">Gestión de Inventario de Retail</string>
     <string name="home">Inicio</string>
+    <string name="welcoming_user">Bienvenido %s</string>
     <string name="movements">Movimientos</string>
     <string name="products">Productos</string>
     <string name="reports">Reportes</string>
@@ -45,13 +49,19 @@
     <string name="login">Iniciar Sesión</string>
     <string name="forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="enter_your_password">Ingrese su contraseña</string>
-    <string name="view_details">Ver Detalles</string>
-    <string name="generate_reports">Generar Reporte</string>
-    <string name="reports_resume">Resumen de Reportes</string>
-    <string name="generate_monthly_report">Generar Reporte Mensual</string>
-    <string name="see_movements">See Movements</string>
-    <string name="stock_alerts">Stock Alerts</string>
-    <string name="search_products">Search Products...</string>
-    <string name="last_movements">Last Movements</string>
+    <string name="view_details">Ver detalles</string>
+    <string name="generate_report">Generar Reporte</string>
+    <string name="reports_resume">Resumen de reportes</string>
+    <string name="generate_monthly_report">Generar reporte mensual</string>
+    <string name="see_movements">Ver movimientos</string>
+    <string name="stock_alerts">Alertas de stock</string>
+    <string name="search_products">Buscar productos...</string>
+    <string name="last_movements">Últimos movimientos</string>
+    <string name="generate_reports">Generar informes</string>
+    <string name="generate_monthly_reports">Informe mensual</string>
+    <string name="monthly_report_description">Ver informes detallados del mes actual o meses anteriores.</string>
+    <string name="category_report">Informe por categorías</string>
+    <string name="category_report_description">Analizar el inventario y movimientos agrupados por categorías.</string>
+
 
 </resources>

@@ -1,4 +1,8 @@
 <resources>
+    <string name="total_inventory_value">القيمة الإجمالية للمخزون: %.2f</string>
+    <string name="total_products">إجمالي المنتجات: %d</string>
+    <string name="low_stock_alerts">تنبيه! %d منتجات بمخزون منخفض</string>
+    <string name="welcoming_user">مرحبًا %s</string>
     <string name="app_name">إدارة مخزون التجزئة</string>
     <string name="home">الصفحة الرئيسية</string>
     <string name="movements">الحركات</string>
@@ -46,12 +50,17 @@
     <string name="forgot_password">هل نسيت كلمة المرور؟</string>
     <string name="enter_your_password">أدخل كلمة المرور</string>
     <string name="view_details">عرض التفاصيل</string>
-    <string name="see_movements">See Movements</string>
-    <string name="stock_alerts">Stock Alerts</string>
-    <string name="search_products">Search Products...</string>
-    <string name="last_movements">Last Movements</string>
-    <string name="generate_reports">Generar Reporte</string>
-    <string name="reports_resume">Resumen de Reportes</string>
-    <string name="generate_monthly_report">Generar Reporte Mensual</string>
+    <string name="see_movements">عرض الحركات</string>
+    <string name="stock_alerts">تنبيهات المخزون</string>
+    <string name="search_products">بحث عن المنتجات...</string>
+    <string name="last_movements">أحدث الحركات</string>
+    <string name="generate_report">إنشاء تقرير</string>
+    <string name="reports_resume">ملخص التقارير</string>
+    <string name="generate_monthly_report">إنشاء تقرير شهري</string>
+    <string name="generate_reports">إنشاء التقارير</string>
+    <string name="generate_monthly_reports">التقرير الشهري</string>
+    <string name="monthly_report_description">عرض تقارير مفصلة للشهر الحالي أو الأشهر السابقة.</string>
+    <string name="category_report">التقرير حسب الفئات</string>
+    <string name="category_report_description">تحليل المخزون والحركات مجمعة حسب الفئات.</string>
 
 </resources>

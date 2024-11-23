@@ -10,7 +10,7 @@
         android:id="@+id/tvWelcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="¡Hola, Usuario!"
+        android:text="@string/welcoming_user"
         android:textSize="20sp"
         android:textStyle="bold"
         android:paddingBottom="16dp" />
@@ -37,7 +37,7 @@
         android:id="@+id/tvLowStockAlert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="¡Alerta! 5 productos con stock bajo"
+        android:text="@string/low_stock_alerts"
         android:textSize="16sp"
         android:textColor="@android:color/holo_red_dark"
         android:paddingBottom="8dp" />
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:textColor="@color/primary_button_text_color"
-            android:text="@string/generate_reports"
+            android:text="@string/generate_report"
             android:textSize="14sp" />
 
         <Button

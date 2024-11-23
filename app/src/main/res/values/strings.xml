@@ -1,5 +1,9 @@
 <resources>
+    <string name="total_inventory_value">Total inventory value: %.2f€</string>
+    <string name="low_stock_alerts">Alert! %d products with low stock</string>
+    <string name="total_products">Total Products: %d</string>
     <string name="app_name">Retail Stock Management</string>
+    <string name="welcoming_user">Welcome %s</string>
     <string name="home">Home</string>
     <string name="movements">Movements</string>
     <string name="products">Products</string>
@@ -50,7 +54,13 @@
     <string name="stock_alerts">Stock Alerts</string>
     <string name="search_products">Search Products...</string>
     <string name="last_movements">Last Movements</string>
-    <string name="generate_reports">Generar Reporte</string>
-    <string name="reports_resume">Resumen de Reportes</string>
-    <string name="generate_monthly_report">Generar Reporte Mensual</string>
+    <string name="generate_report">Generate Report</string>
+    <string name="reports_resume">Report Summary</string>
+    <string name="generate_monthly_report">Generate Monthly Report</string>
+    <string name="generate_reports">Generate Reports</string>
+    <string name="generate_monthly_reports">Monthly Report</string>
+    <string name="monthly_report_description">View detailed reports for the current or previous months.</string>
+    <string name="category_report">Category-wise Report</string>
+    <string name="category_report_description">Analyze stock and movements grouped by categories.</string>
+
 </resources>
