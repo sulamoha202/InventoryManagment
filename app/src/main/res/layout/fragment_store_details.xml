@@ -1,0 +1,134 @@
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="8dp"
+    android:layout_margin="16dp"
+    android:backgroundTint="@android:color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center|start"
+        android:padding="24dp">
+
+        <!-- Store Name -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start|center_vertical"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Store Name:"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:fontFamily="sans-serif-medium" />
+            <TextView
+                android:id="@+id/tvStoreName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MyStore"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:gravity="end"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
+
+        <!-- Store Address -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start|center_vertical"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address:"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:fontFamily="sans-serif-medium" />
+            <TextView
+                android:id="@+id/tvStoreAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="123 Main St"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:gravity="end"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
+
+        <!-- Store Phone -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start|center_vertical"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone:"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:fontFamily="sans-serif-medium" />
+            <TextView
+                android:id="@+id/tvStorePhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="123-456-7890"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:gravity="end"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
+        <!-- Store Email -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start|center_vertical"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email:"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:fontFamily="sans-serif-medium" />
+            <TextView
+                android:id="@+id/tvStoreEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="123-456-7890"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:gravity="end"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
+
+        <!-- Button to Edit Store Info -->
+        <Button
+            android:id="@+id/btnEditStoreInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Store Info"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primary_button_color"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            android:padding="16dp"
+            android:layout_gravity="center" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

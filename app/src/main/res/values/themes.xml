@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme -->
-    <style name="Base.Theme.RetailStock" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.RetailStock" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary color for the app -->
         <item name="colorPrimary">@color/primary_button_color</item>
 

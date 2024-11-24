@@ -42,26 +42,50 @@ public class EditProductFragment extends Fragment {
     private Uri imageReference;
 
     public EditProductFragment() { }
-
     private final ActivityResultLauncher<Intent> pickImage = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    // Check if the result is from the gallery (URI)
                     if (result.getData().getData() != null) {
-                        imageReference = result.getData().getData();
-                        ivProductImage.setImageURI(imageReference);
-                        Log.d("IMAGE LOG", "Image URI: " + imageReference.getPath());
-                    }
-
-                    // Check if the result is from the camera (Bitmap)
-                    else if (result.getData().getExtras() != null) {
+                        // Handle gallery image
+                        Uri selectedImageUri = result.getData().getData();
+                        String savedImagePath = saveImageToCustomFolder(selectedImageUri);
+                        if (!savedImagePath.isEmpty()) {
+                            imageReference = Uri.fromFile(new File(savedImagePath));
+                            ivProductImage.setImageURI(imageReference);
+                            Log.d("IMAGE LOG", "Image saved at: " + savedImagePath);
+                        }
+                    } else if (result.getData().getExtras() != null) {
+                        // Handle camera image
                         Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
+                        imageReference = saveBitmapToFile(photo);
                         ivProductImage.setImageBitmap(photo);
-                        Log.d("IMAGE LOG", "Captured photo: " + photo);
+                        Log.d("IMAGE LOG", "Captured photo saved at: " + imageReference);
                     }
                 }
             });
+
+
+    private Uri saveBitmapToFile(Bitmap bitmap) {
+        // Save the Bitmap to the internal storage (app-specific folder)
+        File directory = new File(getContext().getFilesDir(), "product_images");
+        if (!directory.exists()) {
+            directory.mkdirs(); // Create the directory if it doesn't exist
+        }
+
+        String fileName = "product_" + System.currentTimeMillis() + ".jpg";
+        File file = new File(directory, fileName);
+
+        try (FileOutputStream out = new FileOutputStream(file)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out); // Save as JPEG
+            out.flush();
+            return Uri.fromFile(file); // Return the file Uri
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // Return null if saving fails
+        }
+    }
+
 
     private void openImagePicker() {
         Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -107,39 +131,45 @@ public class EditProductFragment extends Fragment {
             ivProductImage.setImageURI(imageReference);
         }
     }
-
     private void updateProduct() {
         String name = etName.getText().toString();
         int quantity = Integer.parseInt(etQuantity.getText().toString());
         double price = Double.parseDouble(etPrice.getText().toString());
         String description = etDescription.getText().toString();
+        String imagePath = null;
 
-
-        String imagePath = "";
-        if (imageReference != null) {
-            imagePath = saveImageToCustomFolder(imageReference);
-            Log.d("EditProductFragment", "Saving image at: " + imagePath);
+        if (imageReference != null && imageReference.getScheme() != null) {
+            if (imageReference.getScheme().equals("content")) {
+                imagePath = saveImageToCustomFolder(imageReference); // Save content URI to internal storage
+            } else if (imageReference.getScheme().equals("file")) {
+                imagePath = imageReference.getPath(); // Use file path directly
+            }
+            Log.d("EditProductFragment", "Saving new image at: " + imagePath);
+        } else {
+            Product product = dbHelper.getProductById(productId);
+            if (product != null) {
+                imagePath = product.getImageReference();
+                Log.d("EditProductFragment", "Retaining old image at: " + imagePath);
+            }
         }
+
 
         Product product = new Product(productId, name, quantity, price, description, imagePath);
         boolean isUpdated = dbHelper.updateProduct(product);
 
         if (isUpdated) {
             Toast.makeText(getContext(), "Product updated successfully!", Toast.LENGTH_SHORT).show();
-            Log.d("EditProductFragment", "Product updated successfully!");
-
         } else {
             Toast.makeText(getContext(), "Failed to update product!", Toast.LENGTH_SHORT).show();
-            Log.d("EditProductFragment", "Failed to update product!");
-
         }
-        // Notify the parent fragment (ProductListFragment) that the product is updated
+
         if (getActivity() instanceof OnProductUpdatedListener) {
             ((OnProductUpdatedListener) getActivity()).onProductUpdated();
         }
 
         getActivity().getSupportFragmentManager().popBackStack();
     }
+
 
 
     private String saveImageToCustomFolder(Uri imageUri) {
@@ -152,22 +182,31 @@ public class EditProductFragment extends Fragment {
         File destinationFile = new File(folder, imageFileName);
 
         try {
-            // Resize the image to 600x600 before saving
-            Bitmap bitmap = resizeImage(imageUri);
+            // If the image is a URI (from gallery), we can copy it directly
+            if (imageUri != null) {
+                InputStream inputStream = getContext().getContentResolver().openInputStream(imageUri);
+                FileOutputStream outputStream = new FileOutputStream(destinationFile);
 
-            // Save the resized image to a file
-            FileOutputStream outputStream = new FileOutputStream(destinationFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);  // Compress the image
-            outputStream.flush();
-            outputStream.close();
+                // Copy the image to custom folder
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
+                inputStream.close();
+                outputStream.flush();
+                outputStream.close();
 
-            return destinationFile.getAbsolutePath();
+                return destinationFile.getAbsolutePath();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
             return "";
         }
+        return "";
     }
+
 
     private Bitmap resizeImage(Uri imageUri) throws IOException {
         // Load the image as a Bitmap

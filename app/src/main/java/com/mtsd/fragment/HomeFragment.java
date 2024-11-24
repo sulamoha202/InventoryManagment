@@ -4,23 +4,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.mtsd.R;
-import com.mtsd.activity.GenerateReportActivity;
+import com.mtsd.adapter.MovementAdapter;
+import com.mtsd.model.Movement;
+import com.mtsd.model.RevenueData;
 import com.mtsd.util.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -39,34 +46,45 @@ public class HomeFragment extends Fragment {
         // Initialize PieChart
         pieChart = view.findViewById(R.id.pieChart);
 
-        // Create data entries for the PieChart
+        // Fetch last week's revenue data
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        List<RevenueData> revenueDataList = databaseHelper.getLastWeekRevenue(); // Fetch data from DB
+
+        // Populate the PieChart with revenue data
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry(25f, "Category 1"));
-        pieEntries.add(new PieEntry(35f, "Category 2"));
-        pieEntries.add(new PieEntry(40f, "Category 3"));
+        for (RevenueData data : revenueDataList) {
+            pieEntries.add(new PieEntry(data.getRevenue(), data.getLabel())); // Add revenue and label (e.g., day)
+        }
 
         // Create PieDataSet
-        PieDataSet dataSet = new PieDataSet(pieEntries, "Inventory Distribution");
-        dataSet.setColors(new int[]{R.color.primary_button_color, R.color.primary_button_color, R.color.primary_button_color}); // Set colors
+        PieDataSet dataSet = new PieDataSet(pieEntries, getString(R.string.last_week_revenue)); // Title for the chart
+        dataSet.setColors(new int[]{
+                ContextCompat.getColor(getContext(), R.color.primary_button_color), // Orange
+                ContextCompat.getColor(getContext(), R.color.accent_text_color),    // Accent Red
+                ContextCompat.getColor(getContext(), R.color.secondary_text_color) // Secondary Gray
+        });
 
-        // Create PieData and set it on PieChart
+        // Create PieData
         PieData pieData = new PieData(dataSet);
-        pieChart.setData(pieData);
+        Legend legend = pieChart.getLegend();
+        legend.setTextColor(getResources().getColor(R.color.primary_text_color));
 
-        // Optional: Set chart settings
-        pieChart.setCenterText("Inventory");
+        // Customize PieChart
+        pieChart.setData(pieData);
+        pieChart.setCenterText(getString(R.string.revenue_distribution)); // Center text
         pieChart.setUsePercentValues(true);
-        pieChart.invalidate();  // Refresh the chart
+        pieChart.getDescription().setEnabled(false); // Disable description
+        pieChart.animateY(1000); // Add animation
+        pieChart.invalidate();
 
         TextView tvWelcom = view.findViewById(R.id.tvWelcome);
-        TextView tvTotalProducts = view.findViewById(R.id.tvTotalProducts);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-        Log.d("SharedPreference","Saved Username: "+ sharedPreferences.getString("username","Not Saved"));
-        String username = sharedPreferences.getString("username","Guest");
-        String welcomeMessage = getString(R.string.welcoming_user,username);
+        String name = sharedPreferences.getString("name","Guest");
+        String welcomeMessage = getString(R.string.welcoming_user,name);
         tvWelcom.setText(welcomeMessage);
 
+        TextView tvTotalProducts = view.findViewById(R.id.tvTotalProducts);
         int TotalProducts = dbHelper.getQuantitySumOfAllProducts();
 
         String totalProductsText = getString(R.string.total_products,TotalProducts);
@@ -84,16 +102,24 @@ public class HomeFragment extends Fragment {
 
         Button btnAddProduct = view.findViewById(R.id.btnAddProduct);
         Button btnViewMovements = view.findViewById(R.id.btnViewMovements);
-        Button btnGenerateReport = view.findViewById(R.id.btnGenerateReport);;
+        Button btnGenerateMonthlyReport = view.findViewById(R.id.btnGenerateMonthlyReport);;
         Button btnStockAlerts = view.findViewById(R.id.btnStockAlerts);;
+        Button btnViewReport = view.findViewById(R.id.btnViewReport);
 
         btnAddProduct.setOnClickListener(v -> navigateToFragment(new AddProductFragment()));
         btnViewMovements.setOnClickListener(v-> navigateToFragment(new MovementsFragment()));
         btnStockAlerts.setOnClickListener(v-> navigateToFragment(new LowStockFragment()));
-        btnGenerateReport.setOnClickListener(v->{
-            Intent intent = new Intent(getContext(), GenerateReportActivity.class);
-            startActivity(intent);
-        });
+        btnViewReport.setOnClickListener(v->navigateToFragment(new ReportsFragment()));
+        btnGenerateMonthlyReport.setOnClickListener(v->navigateToFragment(new GenerateReportFragment()));
+
+
+        RecyclerView rvRecentMovements = view.findViewById(R.id.rvRecentMovements);
+        rvRecentMovements.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        List<Movement> lastMovements = dbHelper.getLastFiveMovements();
+
+        MovementAdapter adapter = new MovementAdapter(lastMovements);
+        rvRecentMovements.setAdapter(adapter);
         return view;
     }
     private void navigateToFragment(Fragment fragment) {

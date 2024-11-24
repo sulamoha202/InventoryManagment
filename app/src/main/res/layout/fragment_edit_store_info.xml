@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@android:color/white">
@@ -20,19 +21,19 @@
             android:padding="12dp">
 
             <EditText
-                android:id="@+id/edit_store_name"
+                android:id="@+id/etStoreName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/store_name"
-                android:textSize="18sp"
-                android:padding="12dp"
+                android:hint="Store Name"
+                android:textSize="16sp"
+                android:padding="10dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/rounded_edittext"
                 android:textColor="@android:color/black" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Username Input -->
+    <!-- Store Address Input -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,19 +47,19 @@
             android:padding="12dp">
 
             <EditText
-                android:id="@+id/edit_username"
+                android:id="@+id/etStoreAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name"
-                android:textSize="18sp"
-                android:padding="12dp"
+                android:hint="Store Address"
+                android:textSize="16sp"
+                android:padding="10dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/rounded_edittext"
                 android:textColor="@android:color/black" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Email Input -->
+    <!-- Store Phone Input -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,12 +73,38 @@
             android:padding="12dp">
 
             <EditText
-                android:id="@+id/edit_email"
+                android:id="@+id/etStorePhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:textSize="18sp"
-                android:padding="12dp"
+                android:hint="Store Phone"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Store Email Input -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <EditText
+                android:id="@+id/etStoreEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Store Email"
+                android:textSize="16sp"
+                android:padding="10dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/rounded_edittext"
                 android:textColor="@android:color/black"
@@ -85,68 +112,13 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Password Input -->
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
-
-            <EditText
-                android:id="@+id/edit_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:textSize="18sp"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/rounded_edittext"
-                android:textColor="@android:color/black"
-                android:inputType="textPassword" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- Confirm Password Input -->
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
-
-            <EditText
-                android:id="@+id/edit_confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/confirm_password"
-                android:textSize="18sp"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/rounded_edittext"
-                android:textColor="@android:color/black"
-                android:inputType="textPassword" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
     <!-- Save Button -->
     <Button
-        android:id="@+id/save_button"
+        android:id="@+id/btnSave"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/save"
-        android:textSize="18sp"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:textSize="16sp"
         android:textColor="@android:color/white"
         android:background="@drawable/rounded_button"
         android:padding="12dp" />

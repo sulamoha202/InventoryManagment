@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -48,6 +50,11 @@ public class BaseActivity extends AppCompatActivity {
             return;  // Ensure the rest of onCreate is skipped if redirecting
         }
 
+        TextView tvStoreName = findViewById(R.id.tvStoreName);
+        String storeName = sharedPreferences.getString("store_name","Null");
+        Log.d("SharedPreference", "this the store name" + storeName);
+        tvStoreName.setText(storeName);
+
         // Setup Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
@@ -66,15 +73,15 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.nav_profile:
                 selectedFragment = new ProfileFragment();
                 break;
-            case R.id.nav_movements:
+/*            case R.id.nav_movements:
                 selectedFragment = new MovementsFragment();
-                break;
+                break;*/
             case R.id.nav_products:
                 selectedFragment = new ProductListFragment();
                 break;
-            case R.id.nav_reports:
+/*            case R.id.nav_reports:
                 selectedFragment = new ReportsFragment();
-                break;
+                break;*/
         }
 
         if (selectedFragment != null) {

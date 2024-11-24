@@ -3,7 +3,7 @@
     <string name="low_stock_alerts">Alert! %d products with low stock</string>
     <string name="total_products">Total Products: %d</string>
     <string name="app_name">Retail Stock Management</string>
-    <string name="welcoming_user">Welcome %s</string>
+    <string name="welcoming_user">Welcome %s!</string>
     <string name="home">Home</string>
     <string name="movements">Movements</string>
     <string name="products">Products</string>
@@ -62,5 +62,10 @@
     <string name="monthly_report_description">View detailed reports for the current or previous months.</string>
     <string name="category_report">Category-wise Report</string>
     <string name="category_report_description">Analyze stock and movements grouped by categories.</string>
-
+    <string name="last_week_revenue">Last Week Revenue</string>
+    <string name="revenue_distribution">Revenue Distribution</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="view_store_info">View Store Details</string>
+    <string name="view_reports">View Reports</string>
 </resources>

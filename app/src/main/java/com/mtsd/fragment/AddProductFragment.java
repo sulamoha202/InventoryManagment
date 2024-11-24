@@ -56,15 +56,43 @@ public class AddProductFragment extends Fragment {
                         ivProductImage.setImageURI(imageReference);
                         Log.d("IMAGE LOG", "Image URI: " + imageReference.getPath());
                     }
-
                     // Check if the result is from the camera (Bitmap)
                     else if (result.getData().getExtras() != null) {
                         Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
                         ivProductImage.setImageBitmap(photo);
                         Log.d("IMAGE LOG", "Captured photo: " + photo);
+
+                        // Save the image captured from the camera
+                        imageReference = saveBitmapToCustomFolder(photo); // Save the Bitmap and return its path
                     }
                 }
             });
+
+    // Method to save Bitmap from Camera to a custom folder
+    private Uri saveBitmapToCustomFolder(Bitmap photo) {
+        File folder = new File(getContext().getFilesDir(), "product_images");
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+
+        String imageFileName = "product_" + System.currentTimeMillis() + ".jpg";
+        File destinationFile = new File(folder, imageFileName);
+
+        try {
+            // Save the Bitmap to a file
+            FileOutputStream outputStream = new FileOutputStream(destinationFile);
+            photo.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);  // Compress the image
+            outputStream.flush();
+            outputStream.close();
+
+            // Return the URI of the saved image
+            return Uri.fromFile(destinationFile);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     private void openImagePicker() {

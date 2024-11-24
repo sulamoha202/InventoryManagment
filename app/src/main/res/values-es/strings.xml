@@ -4,7 +4,7 @@
     <string name="total_products">Total productos: %d</string>
     <string name="app_name">Gestión de Inventario de Retail</string>
     <string name="home">Inicio</string>
-    <string name="welcoming_user">Bienvenido %s</string>
+    <string name="welcoming_user">Bienvenido %s!</string>
     <string name="movements">Movimientos</string>
     <string name="products">Productos</string>
     <string name="reports">Reportes</string>
@@ -62,6 +62,11 @@
     <string name="monthly_report_description">Ver informes detallados del mes actual o meses anteriores.</string>
     <string name="category_report">Informe por categorías</string>
     <string name="category_report_description">Analizar el inventario y movimientos agrupados por categorías.</string>
-
+    <string name="last_week_revenue">Ingresos de la última semana</string>
+    <string name="revenue_distribution">Distribución de ingresos</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="confirm_password">Confirmar Contraseña</string>
+    <string name="view_store_info">Ver Detalles de la Tienda</string>
+    <string name="view_reports">Ver Reportes</string>
 
 </resources>

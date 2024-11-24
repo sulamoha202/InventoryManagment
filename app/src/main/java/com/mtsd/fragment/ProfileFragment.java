@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -32,11 +33,21 @@ public class ProfileFragment extends Fragment {
 
         LinearLayout logoutLayout = view.findViewById(R.id.logout);
         LinearLayout editProfileLayout = view.findViewById(R.id.editProfile);
-        LinearLayout settingsLayout = view.findViewById(R.id.settings);
+        LinearLayout storeInfoView = view.findViewById(R.id.viewStoreInfo);
 
 
+        TextView tvProfileName = view.findViewById(R.id.tvProfileName);
+        TextView tvProfileEmail = view.findViewById(R.id.tvProfileEmail);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString("name","Person Name");
+        String email = sharedPreferences.getString("email","email@email.es");
+        tvProfileName.setText(name);
+        tvProfileEmail.setText(email);
+
+
+        storeInfoView.setOnClickListener(v -> navigateToFragment(new StoreDetailsFragment()));
         editProfileLayout.setOnClickListener(v -> navigateToFragment(new EditProfileFragment()));
-        settingsLayout.setOnClickListener(v -> navigateToFragment(new SettingsFragment()));
         logoutLayout.setOnClickListener(v -> logout());
 
         return view;
