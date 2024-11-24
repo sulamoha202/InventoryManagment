@@ -1,5 +1,6 @@
 package com.mtsd.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,11 @@ import java.util.List;
 
 public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MovementViewHolder> {
     private List<Movement> movementList;
+    private  Context context;
 
-    public MovementAdapter(List<Movement> movementList) {
+    public MovementAdapter(List<Movement> movementList, Context context) {
         this.movementList = movementList;
+        this.context = context;
     }
 
     @NonNull
@@ -31,7 +34,7 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.Moveme
     public void onBindViewHolder(@NonNull MovementViewHolder holder, int position) {
         Movement movement = movementList.get(position);
         holder.tvProductName.setText(movement.getProductName());
-        holder.tvMovementType.setText(movement.getMovementType());
+        holder.tvMovementType.setText(movement.getMovementType().equals("ADD") ? context.getString(R.string.movement_type_in) : context.getString(R.string.movement_type_out));
         holder.tvQuantity.setText(String.valueOf(movement.getQuantity()));
         holder.tvDate.setText(movement.getDate());
     }

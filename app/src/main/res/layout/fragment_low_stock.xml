@@ -9,7 +9,7 @@
         android:id="@+id/tvLowStockTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Low Stock Products"
+        android:text="@string/low_stock_product"
         android:textSize="20sp"
         android:textStyle="bold"
         android:paddingBottom="8dp" />

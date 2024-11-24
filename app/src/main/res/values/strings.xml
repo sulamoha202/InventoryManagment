@@ -68,4 +68,9 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="view_store_info">View Store Details</string>
     <string name="view_reports">View Reports</string>
+    <string name="low_stock_product">Low stock products</string>
+    <string name="low_stock_remaining">Low Stock: %d units remaining</string>
+    <string name="movement_type_in">In</string>
+    <string name="movement_type_out">Out</string>
+
 </resources>

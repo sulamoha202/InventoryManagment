@@ -1,5 +1,6 @@
 package com.mtsd.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,11 @@ import java.util.List;
 public class LowStockAdapter extends RecyclerView.Adapter<LowStockAdapter.ViewHolder> {
 
     private List<ReportLowStock> lowStockList;
+    private Context context;
 
-    public LowStockAdapter(List<ReportLowStock> lowStockList) {
+    public LowStockAdapter(List<ReportLowStock> lowStockList,Context context) {
         this.lowStockList = lowStockList;
+        this.context = context;
     }
 
     @NonNull
@@ -34,7 +37,8 @@ public class LowStockAdapter extends RecyclerView.Adapter<LowStockAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ReportLowStock product = lowStockList.get(position);
         holder.tvProductName.setText(product.getProductName());
-        holder.tvQuantity.setText("Low Stock: " + product.getQuantity() + " units remaining");
+        String quantityRemaining = context.getString(R.string.low_stock_remaining,product.getQuantity());
+        holder.tvQuantity.setText(quantityRemaining);
 
         // Handle dismiss button
         holder.btnDismissAlert.setOnClickListener(v -> {

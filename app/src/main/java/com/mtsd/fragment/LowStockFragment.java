@@ -34,7 +34,7 @@ public class LowStockFragment extends Fragment {
         databaseHelper = new DatabaseHelper(getContext());
         List<ReportLowStock> lowStockList = databaseHelper.getLowStockProducts(15);
 
-        LowStockAdapter adapter = new LowStockAdapter(lowStockList);
+        LowStockAdapter adapter = new LowStockAdapter(lowStockList,getContext());
         rvLowStock.setAdapter(adapter);
 
         return view;

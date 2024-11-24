@@ -34,7 +34,7 @@ public class MovementsFragment extends Fragment {
 
         // Load movements from the database
         List<Movement> movementList = dbHelper.getAllMovements();
-        MovementAdapter adapter = new MovementAdapter(movementList);
+        MovementAdapter adapter = new MovementAdapter(movementList,getContext());
         rvMovements.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvMovements.setAdapter(adapter);
 

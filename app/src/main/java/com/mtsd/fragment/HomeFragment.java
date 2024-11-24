@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment {
 
         List<Movement> lastMovements = dbHelper.getLastFiveMovements();
 
-        MovementAdapter adapter = new MovementAdapter(lastMovements);
+        MovementAdapter adapter = new MovementAdapter(lastMovements,getContext());
         rvRecentMovements.setAdapter(adapter);
         return view;
     }

@@ -50,7 +50,7 @@ public class AddMovementFragment extends Fragment {
         spProduct.setAdapter(productAdapter);
 
         // Setup movement type spinner
-        String[] movementTypes = {"ADD", "REMOVE"};
+        String[] movementTypes = {getString(R.string.movement_type_in), getString(R.string.movement_type_out)};
         ArrayAdapter<String> movementAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, movementTypes);
         movementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spMovementType.setAdapter(movementAdapter);

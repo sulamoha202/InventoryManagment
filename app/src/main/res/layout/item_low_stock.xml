@@ -27,7 +27,7 @@
             android:id="@+id/tvQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Low Stock: 10 units remaining"
+            android:text="Low Stock: %s units remaining"
             android:textSize="14sp"
             android:textColor="@android:color/white" />
 

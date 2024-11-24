@@ -68,5 +68,10 @@
     <string name="confirm_password">Confirmar Contraseña</string>
     <string name="view_store_info">Ver Detalles de la Tienda</string>
     <string name="view_reports">Ver Reportes</string>
+    <string name="low_stock_product">Productos bajo de stock</string>
+    <string name="low_stock_remaining">Bajo de stock quedan: %d unidades</string>
+    <string name="movement_type_in">Entrada</string>
+    <string name="movement_type_out">Salida</string>
+
 
 </resources>
