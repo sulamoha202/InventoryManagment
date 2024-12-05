@@ -17,19 +17,15 @@ public class GenerateReportFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_generate_report, container, false);
 
-        // Example listeners for cards
         CardView monthlyReportCard = view.findViewById(R.id.cardMonthlyReport);
         CardView categoryReportCard = view.findViewById(R.id.cardCategoryReport);
 
         monthlyReportCard.setOnClickListener(v -> {
-            // Handle monthly report generation
         });
 
         categoryReportCard.setOnClickListener(v -> {
-            // Handle category-wise report generation
         });
 
         return view;

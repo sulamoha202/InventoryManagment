@@ -6,32 +6,6 @@
     android:padding="16dp"
     android:background="@android:color/white">
 
-    <!-- Store Name Input -->
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
-
-            <EditText
-                android:id="@+id/edit_store_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/store_name"
-                android:textSize="18sp"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/rounded_edittext"
-                android:textColor="@android:color/black" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
     <!-- Username Input -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -46,7 +20,33 @@
             android:padding="12dp">
 
             <EditText
-                android:id="@+id/edit_username"
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Full Name Input -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <EditText
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
@@ -72,7 +72,7 @@
             android:padding="12dp">
 
             <EditText
-                android:id="@+id/edit_email"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
@@ -99,7 +99,7 @@
             android:padding="12dp">
 
             <EditText
-                android:id="@+id/edit_password"
+                android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
@@ -126,7 +126,7 @@
             android:padding="12dp">
 
             <EditText
-                android:id="@+id/edit_confirm_password"
+                android:id="@+id/etConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/confirm_password"
@@ -141,7 +141,7 @@
 
     <!-- Save Button -->
     <Button
-        android:id="@+id/save_button"
+        android:id="@+id/btnEtProfileSave"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"

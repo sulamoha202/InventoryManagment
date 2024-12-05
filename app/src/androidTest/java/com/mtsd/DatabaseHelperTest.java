@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 import com.mtsd.model.Product;
-import com.mtsd.util.DatabaseHelper;
+import com.mtsd.helper.DatabaseHelper;
 
 @RunWith(AndroidJUnit4.class)
 public class DatabaseHelperTest {

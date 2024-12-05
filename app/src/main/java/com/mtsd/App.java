@@ -3,7 +3,7 @@ package com.mtsd;
 import android.app.Application;
 import android.util.Log;
 
-import com.mtsd.util.DatabaseHelper;
+import com.mtsd.helper.DatabaseHelper;
 
 public class App extends Application {
     private static App instance;

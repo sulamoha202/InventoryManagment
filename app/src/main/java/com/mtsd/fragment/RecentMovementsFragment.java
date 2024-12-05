@@ -1,5 +1,6 @@
 package com.mtsd.fragment;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtsd.R;
 import com.mtsd.adapter.RecentMovementsAdapter;
+import com.mtsd.helper.RepositoryManager;
+import com.mtsd.model.Movement;
 import com.mtsd.model.ReportRecentMovement;
-import com.mtsd.util.DatabaseHelper;
+import com.mtsd.helper.DatabaseHelper;
 
 import java.util.List;
 
 public class RecentMovementsFragment extends Fragment {
 
     private RecyclerView rvRecentMovements;
-    private DatabaseHelper databaseHelper;
+    private RepositoryManager repositoryManager;
 
     @Nullable
     @Override
@@ -31,10 +34,11 @@ public class RecentMovementsFragment extends Fragment {
         rvRecentMovements = view.findViewById(R.id.rvRecentMovements);
         rvRecentMovements.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        databaseHelper = new DatabaseHelper(getContext());
-        List<ReportRecentMovement> movementList = databaseHelper.getRecentMovements();
+        SQLiteDatabase database = new DatabaseHelper(getContext()).getReadableDatabase();
+        repositoryManager = new RepositoryManager(database);
+        List<Movement> movementList = repositoryManager.getMovementRepository().getLastMovements(10);//databaseHelper.getRecentMovements();
 
-        RecentMovementsAdapter adapter = new RecentMovementsAdapter(movementList);
+        RecentMovementsAdapter adapter = new RecentMovementsAdapter(movementList, repositoryManager.getProductRepository());
         rvRecentMovements.setAdapter(adapter);
 
         return view;

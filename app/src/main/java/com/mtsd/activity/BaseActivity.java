@@ -1,5 +1,6 @@
 package com.mtsd.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -19,22 +20,16 @@ import com.mtsd.fragment.ProductListFragment;
 import com.mtsd.fragment.HomeFragment;
 import com.mtsd.fragment.ProfileFragment;
 import com.mtsd.fragment.ReportsFragment;
+import com.mtsd.util.StoreInfoUpdateListener;
 
 import java.util.Locale;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements StoreInfoUpdateListener {
     private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Locale locale = new Locale("es");
-        Locale.setDefault(locale);
-
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_base); // Base layout contains BottomNavigationView
 
@@ -63,6 +58,7 @@ public class BaseActivity extends AppCompatActivity {
         loadFragment(new HomeFragment());
     }
 
+
     private boolean onNavigationItemSelected(MenuItem item) {
         Fragment selectedFragment = null;
 
@@ -73,15 +69,9 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.nav_profile:
                 selectedFragment = new ProfileFragment();
                 break;
-/*            case R.id.nav_movements:
-                selectedFragment = new MovementsFragment();
-                break;*/
             case R.id.nav_products:
                 selectedFragment = new ProductListFragment();
                 break;
-/*            case R.id.nav_reports:
-                selectedFragment = new ReportsFragment();
-                break;*/
         }
 
         if (selectedFragment != null) {
@@ -99,7 +89,16 @@ public class BaseActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+
+
     public void loadFragmentFromFragment(Fragment fragment){
         loadFragment(fragment);
+    }
+
+    @Override
+    public void onStoreInfoUpdated(String storeName) {
+        TextView tvStoreName = findViewById(R.id.tvStoreName);
+        Log.d("SharedPreference", "Updated store name through callback: " + storeName);
+        tvStoreName.setText(storeName);
     }
 }

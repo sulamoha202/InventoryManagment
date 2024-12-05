@@ -1,5 +1,6 @@
 package com.mtsd.fragment;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtsd.R;
 import com.mtsd.adapter.LowStockAdapter;
-import com.mtsd.util.DatabaseHelper;
+import com.mtsd.helper.DatabaseHelper;
+import com.mtsd.helper.RepositoryManager;
 import com.mtsd.model.ReportLowStock;
+import com.mtsd.repository.ProductRepository;
 
 import java.util.List;
 
 public class LowStockFragment extends Fragment {
 
     private RecyclerView rvLowStock;
-    private DatabaseHelper databaseHelper;
+    private RepositoryManager repositoryManager;
 
     @Nullable
     @Override
@@ -31,8 +34,12 @@ public class LowStockFragment extends Fragment {
         rvLowStock = view.findViewById(R.id.rvLowStock);
         rvLowStock.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        databaseHelper = new DatabaseHelper(getContext());
-        List<ReportLowStock> lowStockList = databaseHelper.getLowStockProducts(15);
+        SQLiteDatabase database = new DatabaseHelper(getContext()).getReadableDatabase();
+        repositoryManager = new RepositoryManager(database);
+
+        ProductRepository productRepository = repositoryManager.getProductRepository();
+
+        List<ReportLowStock> lowStockList = productRepository.getLowStockProducts(15);
 
         LowStockAdapter adapter = new LowStockAdapter(lowStockList,getContext());
         rvLowStock.setAdapter(adapter);

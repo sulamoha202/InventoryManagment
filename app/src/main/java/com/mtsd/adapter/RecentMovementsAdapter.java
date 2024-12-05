@@ -9,16 +9,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtsd.R;
+import com.mtsd.model.Movement;
+import com.mtsd.model.Product;
 import com.mtsd.model.ReportRecentMovement;
+import com.mtsd.repository.ProductRepository;
 
 import java.util.List;
 
 public class RecentMovementsAdapter extends RecyclerView.Adapter<RecentMovementsAdapter.ViewHolder> {
 
-    private final List<ReportRecentMovement> movementList;
+    private final List<Movement> movementList;
+    private ProductRepository productRepository;
 
-    public RecentMovementsAdapter(List<ReportRecentMovement> movementList) {
+    public RecentMovementsAdapter(List<Movement> movementList, ProductRepository productRepository) {
         this.movementList = movementList;
+        this.productRepository = productRepository;
     }
 
     @NonNull
@@ -31,9 +36,9 @@ public class RecentMovementsAdapter extends RecyclerView.Adapter<RecentMovements
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ReportRecentMovement movement = movementList.get(position);
-
-        holder.tvProductName.setText(movement.getProductName());
+        Movement movement = movementList.get(position);
+        Product product  = productRepository.getProductById(movement.getProductId());
+        holder.tvProductName.setText(product.getName());
         holder.tvMovementType.setText("Movement Type: " + movement.getMovementType());
         holder.tvQuantity.setText("Quantity: " + movement.getQuantity());
         holder.tvDate.setText("Date: " + movement.getDate());

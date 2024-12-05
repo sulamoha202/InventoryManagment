@@ -3,6 +3,7 @@ package com.mtsd.fragment;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -22,22 +23,26 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
-import com.mtsd.util.DatabaseHelper;
+import com.mtsd.helper.RepositoryManager;
+import com.mtsd.helper.DatabaseHelper;
 import com.mtsd.R;
+import com.mtsd.model.Product;
+import com.mtsd.repository.ProductRepository;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
 public class AddProductFragment extends Fragment {
 
     private EditText etProductName, etProductQuantity, etProductPrice, etProductDescription;
     private Button btnSaveProduct;
-    private DatabaseHelper databaseHelper;
     private ImageView ivProductImage;
     private Uri imageReference;
+
+    private RepositoryManager repositoryManager;
+
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -116,10 +121,8 @@ public class AddProductFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_add_product, container, false);
 
-        // Initialize views
         etProductName = rootView.findViewById(R.id.etProductName);
         etProductQuantity = rootView.findViewById(R.id.etProductQuantity);
         etProductPrice = rootView.findViewById(R.id.etProductPrice);
@@ -127,43 +130,40 @@ public class AddProductFragment extends Fragment {
         btnSaveProduct = rootView.findViewById(R.id.btnSaveProduct);
         ivProductImage = rootView.findViewById(R.id.ivProductImage);
 
-        // Initialize DatabaseHelper
-        databaseHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase database = new DatabaseHelper(requireContext()).getWritableDatabaseInstance();
+        repositoryManager = new RepositoryManager(database);
 
-        // Set up the save button click listener
         btnSaveProduct.setOnClickListener(v -> saveProduct());
 
-        // Set up the image select button listener
         rootView.findViewById(R.id.btnSelectImage).setOnClickListener(v -> openImagePicker());
 
         return rootView;
     }
 
     private void saveProduct() {
-        // Get input data from EditTexts
+        ProductRepository productRepository = repositoryManager.getProductRepository();
+
         String name = etProductName.getText().toString().trim();
         String quantityStr = etProductQuantity.getText().toString().trim();
         String priceStr = etProductPrice.getText().toString().trim();
         String description = etProductDescription.getText().toString().trim();
 
-        // Check for empty fields
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(quantityStr) || TextUtils.isEmpty(priceStr) || TextUtils.isEmpty(description)) {
             Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Convert quantity and price to proper data types
         int quantity = Integer.parseInt(quantityStr);
         double price = Double.parseDouble(priceStr);
 
-        // Copy image to custom folder and get new file path
         String imagePath = "";
         if (imageReference != null) {
             imagePath = saveImageToCustomFolder(imageReference);
         }
+        Product newProduct = new Product(0,name,quantity,price,description,imagePath);
 
         // Insert the product into the database, include image path if available
-        boolean isInserted = databaseHelper.insertProduct(name, quantity, price, description, imagePath);
+        boolean isInserted =  productRepository.insert(newProduct) ;//databaseHelper.insertProduct(name, quantity, price, description, imagePath);
 
         // Show success or failure message
         if (isInserted) {
@@ -172,6 +172,8 @@ public class AddProductFragment extends Fragment {
         } else {
             Toast.makeText(getContext(), "Failed to add product", Toast.LENGTH_SHORT).show();
         }
+
+        returnToPrevouisFragment(new ProductListFragment());
     }
 
     private void clearFields() {
@@ -219,6 +221,15 @@ public class AddProductFragment extends Fragment {
 
         // Resize the Bitmap to 600x600
         return Bitmap.createScaledBitmap(originalBitmap, 600, 600, false);
+    }
+
+    private void returnToPrevouisFragment(Fragment fragment){
+        requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contentFrame, fragment) // `contentFrame` should be the container for fragments
+                .addToBackStack(null) // Optional: Adds the transaction to the back stack
+                .commit();
     }
 
 }

@@ -58,11 +58,9 @@ public class ProfileFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("isLoggedIn", false);
         editor.apply();
-        // Clear the back stack and start LoginActivity
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        // Confirm logout
         Toast.makeText(getActivity(), "Logged out successfully", Toast.LENGTH_SHORT).show();
     }
 

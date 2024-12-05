@@ -1,6 +1,8 @@
 package com.mtsd.adapter;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import com.mtsd.R;
 import com.mtsd.model.Movement;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MovementViewHolder> {
     private List<Movement> movementList;
@@ -33,8 +36,8 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.Moveme
     @Override
     public void onBindViewHolder(@NonNull MovementViewHolder holder, int position) {
         Movement movement = movementList.get(position);
-        holder.tvProductName.setText(movement.getProductName());
-        holder.tvMovementType.setText(movement.getMovementType().equals("ADD") ? context.getString(R.string.movement_type_in) : context.getString(R.string.movement_type_out));
+        holder.tvProductName.setText(String.valueOf(movement.getProductId()));
+        holder.tvMovementType.setText(getMovementType(context,movement.getMovementType()));
         holder.tvQuantity.setText(String.valueOf(movement.getQuantity()));
         holder.tvDate.setText(movement.getDate());
     }
@@ -55,4 +58,17 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.Moveme
             tvDate = itemView.findViewById(R.id.tvDate);
         }
     }
+
+    private String getMovementType(Context context,String movementType){
+        String resourceMovementTypeIn = context.getString(R.string.movement_type_in);
+        String resourceMovementTypeOut = context.getString(R.string.movement_type_out);
+        if(movementType.equals(resourceMovementTypeIn)){
+            return resourceMovementTypeIn;
+        }
+        if(movementType.equals(resourceMovementTypeOut)){
+            return resourceMovementTypeOut;
+        }
+        return "NONE";
+    }
+
 }

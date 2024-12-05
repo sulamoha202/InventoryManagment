@@ -2,13 +2,14 @@ package com.mtsd.model;
 
 public class Movement {
     private int id;
-    private String productName;
+    private int productId;
     private String movementType;
     private int quantity;
     private String date;
 
-    public Movement(int id, String productName, String movementType, int quantity, String date) {
-        this.productName = productName;
+    public Movement(int id, int productId, String movementType, int quantity, String date) {
+        this.id = id;
+        this.productId = productId;
         this.movementType = movementType;
         this.quantity = quantity;
         this.date = date;
@@ -22,8 +23,8 @@ public class Movement {
         this.id = id;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public void setMovementType(String movementType) {
@@ -38,8 +39,8 @@ public class Movement {
         this.date = date;
     }
 
-    public String getProductName() {
-        return productName;
+    public int getProductId() {
+        return productId;
     }
 
     public String getMovementType() {

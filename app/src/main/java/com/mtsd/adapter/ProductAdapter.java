@@ -1,5 +1,6 @@
 package com.mtsd.adapter;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,24 +16,24 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.mtsd.util.DatabaseHelper;
+import com.mtsd.helper.DatabaseHelper;
 import com.mtsd.R;
 import com.mtsd.fragment.EditProductFragment;
+import com.mtsd.helper.RepositoryManager;
 import com.mtsd.model.Product;
 
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     private List<Product> productList;
     private Context context;
-    private DatabaseHelper dbHelper;
 
+    private RepositoryManager repositoryManager;
     public ProductAdapter(List<Product> productList,Context context) {
         this.productList = productList;
         this.context = context;
-        this.dbHelper = new DatabaseHelper(context);
+        SQLiteDatabase database = new DatabaseHelper(context).getWritableDatabaseInstance();
+        repositoryManager = new RepositoryManager(database);
     }
 
     @NonNull
@@ -86,16 +87,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     .commit();
         });
 
-        // Delete button logic
         holder.btnDeleteProduct.setOnClickListener(view -> {
-            // Delete from database
-            dbHelper.deleteProduct(product.getId());
 
-            // Remove from product list and notify RecyclerView
+            repositoryManager.getProductRepository().deleteProductById(product.getId());
+
             productList.remove(position);
             notifyItemRemoved(position);
 
-            // Show a Toast message confirming deletion
             Toast.makeText(context, "Deleted product: " + product.getName(), Toast.LENGTH_SHORT).show();
         });
     }

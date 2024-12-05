@@ -1,7 +1,6 @@
 package com.mtsd.fragment;
 
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.mtsd.R;
 import com.mtsd.activity.BaseActivity;
-import com.mtsd.model.StoreInfo;
-import com.mtsd.util.DatabaseHelper;
 
 public class StoreDetailsFragment extends Fragment {
 

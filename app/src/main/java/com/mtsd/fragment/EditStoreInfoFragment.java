@@ -1,5 +1,8 @@
 package com.mtsd.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,31 +14,38 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.mtsd.R;
+import com.mtsd.helper.DatabaseHelper;
+import com.mtsd.helper.RepositoryManager;
 import com.mtsd.model.StoreInfo;
+import com.mtsd.model.User;
+import com.mtsd.util.StoreInfoUpdateListener;
 
 public class EditStoreInfoFragment extends Fragment {
 
     private EditText etStoreName, etStoreAddress, etStorePhone, etStoreEmail;
-    private Button btnSave;
-    private StoreInfo currentStoreInfo; // Assuming you will load current store info from the database
+    private StoreInfo currentStoreInfo;
+    private RepositoryManager repositoryManager;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_store_info, container, false);
 
-        // Initialize EditTexts and Button
         etStoreName = view.findViewById(R.id.etStoreName);
         etStoreAddress = view.findViewById(R.id.etStoreAddress);
         etStorePhone = view.findViewById(R.id.etStorePhone);
         etStoreEmail = view.findViewById(R.id.etStoreEmail);
-        btnSave = view.findViewById(R.id.btnSave);
+        Button btnSave = view.findViewById(R.id.btnSave);
 
-        // Load current store info (this could be from a database or an API call)
+        sharedPreferences = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+
+
+        SQLiteDatabase database = new DatabaseHelper(requireContext()).getWritableDatabaseInstance();
+        repositoryManager = new RepositoryManager(database);
+
         loadCurrentStoreInfo();
 
-        // Save button click listener
         btnSave.setOnClickListener(v -> saveStoreInfo());
 
         return view;
@@ -43,35 +53,65 @@ public class EditStoreInfoFragment extends Fragment {
 
     // Load the current store info (this is just an example, you can use actual data from a database)
     private void loadCurrentStoreInfo() {
-        // Simulate fetching data from the database
-        currentStoreInfo = new StoreInfo(1,"Store Name", "123 Address St", "123-456-7890", "store@example.com");
+        User user = repositoryManager.getUserRepository().getByUsername(sharedPreferences.getString("username","guest"));
+        if(user == null){
+            Toast.makeText(getContext(),"User not found!",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        // Set current store info into the EditTexts
+        currentStoreInfo = repositoryManager.getStoreInfoRepository().getById(user.getStoreInfoId());
+
+        if(currentStoreInfo == null){
+            Toast.makeText(getContext(),"Store Info not found!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         etStoreName.setText(currentStoreInfo.getName());
         etStoreAddress.setText(currentStoreInfo.getAddress());
         etStorePhone.setText(currentStoreInfo.getPhone());
         etStoreEmail.setText(currentStoreInfo.getEmail());
     }
 
-    // Save the store information (you can save this data into your database)
     private void saveStoreInfo() {
         String storeName = etStoreName.getText().toString();
         String storeAddress = etStoreAddress.getText().toString();
         String storePhone = etStorePhone.getText().toString();
         String storeEmail = etStoreEmail.getText().toString();
 
-        // Update the store info object (you may want to save this to a database)
+        if (storeName.isEmpty() || storeAddress.isEmpty() || storePhone.isEmpty() || storeEmail.isEmpty()) {
+            Toast.makeText(getContext(), "All fields are required!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         currentStoreInfo.setName(storeName);
         currentStoreInfo.setAddress(storeAddress);
         currentStoreInfo.setPhone(storePhone);
         currentStoreInfo.setEmail(storeEmail);
 
-        // Save the updated store info (this is just an example)
-        // You can use SQLite, SharedPreferences, or an API to save the data
-        // For example:
-        // DatabaseHelper.saveStoreInfo(currentStoreInfo);
+        repositoryManager.getStoreInfoRepository().update(currentStoreInfo);
 
-        // Show a Toast or other confirmation message
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("store_name", currentStoreInfo.getName());
+        editor.putString("store_address", currentStoreInfo.getAddress());
+        editor.putString("store_phone", currentStoreInfo.getPhone());
+        editor.putString("store_email", currentStoreInfo.getPhone());
+        editor.apply();
+
+        if(getActivity() instanceof StoreInfoUpdateListener){
+            ((StoreInfoUpdateListener) getActivity()).onStoreInfoUpdated(currentStoreInfo.getName());
+        }
+
         Toast.makeText(getContext(), "Store info updated successfully!", Toast.LENGTH_SHORT).show();
+
+       returnToPrevouisFragment(new StoreDetailsFragment());
+    }
+
+    private void returnToPrevouisFragment(Fragment fragment){
+        requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contentFrame, fragment) // `contentFrame` should be the container for fragments
+                .addToBackStack(null) // Optional: Adds the transaction to the back stack
+                .commit();
     }
 }

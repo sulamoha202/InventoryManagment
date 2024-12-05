@@ -1,5 +1,6 @@
 package com.mtsd.fragment;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtsd.R;
 import com.mtsd.adapter.StockSummaryAdapter;
+import com.mtsd.helper.RepositoryManager;
 import com.mtsd.model.ReportStockSummary;
-import com.mtsd.util.DatabaseHelper;
+import com.mtsd.helper.DatabaseHelper;
 
 import java.util.List;
 
 public class StockSummaryFragment extends Fragment {
 
     private RecyclerView rvStockSummary;
-    private DatabaseHelper databaseHelper;
+    private RepositoryManager repositoryManager;
 
     @Nullable
     @Override
@@ -31,8 +33,9 @@ public class StockSummaryFragment extends Fragment {
         rvStockSummary = view.findViewById(R.id.rvStockSummary);
         rvStockSummary.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        databaseHelper = new DatabaseHelper(getContext());
-        List<ReportStockSummary> stockSummaryList = databaseHelper.getStockSummary();
+        SQLiteDatabase database = new DatabaseHelper(getContext()).getReadableDatabase();
+        repositoryManager = new RepositoryManager(database);
+        List<ReportStockSummary> stockSummaryList = repositoryManager.getProductRepository().getStockSummary();//databaseHelper.getStockSummary();
 
         StockSummaryAdapter adapter = new StockSummaryAdapter(stockSummaryList);
         rvStockSummary.setAdapter(adapter);

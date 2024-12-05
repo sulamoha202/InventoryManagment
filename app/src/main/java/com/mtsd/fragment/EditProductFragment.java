@@ -3,6 +3,7 @@ package com.mtsd.fragment;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -22,24 +23,25 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import com.mtsd.OnProductUpdatedListener;
-import com.mtsd.util.DatabaseHelper;
+import com.mtsd.helper.DatabaseHelper;
 import com.mtsd.R;
+import com.mtsd.helper.RepositoryManager;
 import com.mtsd.model.Product;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
 public class EditProductFragment extends Fragment {
 
     private EditText etName, etQuantity, etPrice, etDescription;
     private ImageView ivProductImage;
     private Button btnSave;
-    private DatabaseHelper dbHelper;
+    private RepositoryManager repositoryManager;
     private int productId;
     private Uri imageReference;
+
 
     public EditProductFragment() { }
     private final ActivityResultLauncher<Intent> pickImage = registerForActivityResult(
@@ -110,7 +112,9 @@ public class EditProductFragment extends Fragment {
         ivProductImage = view.findViewById(R.id.ivProductImage);
         btnSave = view.findViewById(R.id.btnSaveProduct);
 
-        dbHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase database = new DatabaseHelper(requireContext()).getWritableDatabaseInstance();
+        repositoryManager = new RepositoryManager(database);
+
         productId = getArguments().getInt("productId", -1);
         loadProductDetails(productId);
 
@@ -120,8 +124,8 @@ public class EditProductFragment extends Fragment {
         return view;
     }
 
-    private void loadProductDetails(int id) {
-        Product product = dbHelper.getProductById(id);
+   private void loadProductDetails(int id) {
+        Product product = repositoryManager.getProductRepository().getProductById(id);
         if (product != null) {
             etName.setText(product.getName());
             etQuantity.setText(String.valueOf(product.getQuantity()));
@@ -146,7 +150,7 @@ public class EditProductFragment extends Fragment {
             }
             Log.d("EditProductFragment", "Saving new image at: " + imagePath);
         } else {
-            Product product = dbHelper.getProductById(productId);
+            Product product = repositoryManager.getProductRepository().getProductById(productId);
             if (product != null) {
                 imagePath = product.getImageReference();
                 Log.d("EditProductFragment", "Retaining old image at: " + imagePath);
@@ -155,7 +159,7 @@ public class EditProductFragment extends Fragment {
 
 
         Product product = new Product(productId, name, quantity, price, description, imagePath);
-        boolean isUpdated = dbHelper.updateProduct(product);
+        boolean isUpdated = repositoryManager.getProductRepository().updateProduct(product);
 
         if (isUpdated) {
             Toast.makeText(getContext(), "Product updated successfully!", Toast.LENGTH_SHORT).show();
@@ -168,6 +172,8 @@ public class EditProductFragment extends Fragment {
         }
 
         getActivity().getSupportFragmentManager().popBackStack();
+
+        returnToPrevouisFragment(new ProductListFragment());
     }
 
 
@@ -217,5 +223,14 @@ public class EditProductFragment extends Fragment {
 
         // Resize the Bitmap to 600x600
         return Bitmap.createScaledBitmap(originalBitmap, 600, 600, false);
+    }
+
+    private void returnToPrevouisFragment(Fragment fragment){
+        requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contentFrame, fragment) // `contentFrame` should be the container for fragments
+                .addToBackStack(null) // Optional: Adds the transaction to the back stack
+                .commit();
     }
 }

@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <!-- Store Name at the Top -->
     <TextView
@@ -12,22 +12,19 @@
         android:layout_marginBottom="5dp"
         android:padding="12dp"
         android:text="Store Name"
-        android:textAlignment="center"
         android:background="@color/primary_button_color"
         android:textSize="32sp"
         android:textColor="@color/primary_button_text_color"
         android:gravity="center"
         android:textStyle="bold" />
 
-    <!-- Fragment Container (Scroll Viewable Content Below Store Name) -->
+    <!-- Fragment Container (Content Below Store Name) -->
     <FrameLayout
         android:id="@+id/contentFrame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottomNavigationView"
+        android:layout_height="0dp"
         android:layout_below="@id/tvStoreName"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_above="@id/bottomNavigationView" />
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -36,5 +33,4 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_navigation" />
-
 </RelativeLayout>
