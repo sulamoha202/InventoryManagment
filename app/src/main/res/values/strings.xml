@@ -72,6 +72,7 @@
     <string name="low_stock_remaining">Bajo de stock quedan: %d unidades</string>
     <string name="movement_type_in">COMPRADO</string>
     <string name="movement_type_out">VENDIDO</string>
+    <string name="edit_product">Modificar Producto</string>
 
 
 </resources>
